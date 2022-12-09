@@ -5,10 +5,18 @@ const { TOKEN } = dotenv.parsed
 console.log(`TOKEN ${TOKEN}`);
 const app = express()
 const port = 4000
+const path = require('path');
+const public_path = path.resolve('build');
+console.log(public_path);
 
+const ContentSecurityPolicyMiddleWare = (req, res, next) => {
+  res.set("Content-Security-Policy", "default-src 'self'; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval' http://localhost:6842; img-src * 'self' data: ;font-src * ;connect-src *;");
+  next();
+};
+app.use(express.static(public_path));
+// app.use(favicon(resolve('public', 'skin', 'logo.png')));
 
-
-app.get('/api/standings', (req, res) => {
+app.get('/api/standings', ContentSecurityPolicyMiddleWare, (_req, res) => {
   var options = {
     'method': 'GET',
     'hostname': 'api.football-data.org',
@@ -37,11 +45,11 @@ app.get('/api/standings', (req, res) => {
     });
   });
   request.end();
-  
+
 })
 
 
-app.get('/api/matches', (req, res) => {
+app.get('/api/matches', (_req, res) => {
   var options = {
     'method': 'GET',
     'hostname': 'api.football-data.org',
@@ -71,5 +79,10 @@ app.get('/api/matches', (req, res) => {
   });
   request.end();
 })
+
+app.get('/', ContentSecurityPolicyMiddleWare, (_req, res) => {
+  res.sendFile(path.resolve("build", "index.html"));
+});
+
 
 app.listen(port, () => console.log(`Example backend API listening on port ${port}!`))
