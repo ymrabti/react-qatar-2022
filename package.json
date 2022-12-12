@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "bash bin/dev.sh",
-    "startserver": "nodemon src/api/index.js",
+    "startclient": "bash bin/dev.sh",
+    "start": "nodemon src/api/index.js",
     "build": "react-scripts build",
     "deploy": "deploy-node-app",
     "test": "react-scripts test",

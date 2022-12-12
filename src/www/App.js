@@ -39,7 +39,7 @@ class App extends Component {
         return prev
       }, [])
       reduced[0].groupMatches = reducedGroupStage
-      console.log(reduced)
+      // console.log(reduced)
     } else {
 
     }
