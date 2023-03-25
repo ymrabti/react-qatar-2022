@@ -2,8 +2,11 @@
   "name": "fifa_worldcup",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "vscode": "^1.22.0"
+  },
   "scripts": {
-    "startclient": "bash bin/dev.sh",
+    "startclient": "react-scripts start",
     "start": "nodemon src/api/index.js",
     "build": "react-scripts build",
     "deploy": "deploy-node-app",
